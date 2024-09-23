@@ -6,7 +6,7 @@ function Topbar() {
     <div className="topbar">
       <nav>
         <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
-        <Link href="/blog">Blog</Link>
+        <Link href="/blog">Blog</Link> | <Link href="/three">3D Scene</Link>
       </nav>
     </div>
   );

@@ -21,7 +21,7 @@ const blogPosts = [
 
 const Blog: React.FC = () => {
   return (
-    <div className="blog-list">
+    <div className="blog-list" style={{ minHeight: 4000 }}>
       {blogPosts.map((post) => (
         <div key={post.id}>
           <Link href={`/blog/${post.id}`}>
