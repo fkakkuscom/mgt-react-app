@@ -1,14 +1,20 @@
 import { useFrame } from "@react-three/fiber";
-import { useRef, useEffect, useState } from "react";
+import { lazy, useRef, useEffect, useState, Suspense } from "react";
 import { Mesh } from "three";
+import { useSpring, animated } from "@react-spring/three";
+import { CatmullRomLine, Text } from "@react-three/drei";
 
-const ThreeScene = () => {
+const PlotWidget = lazy(() => import("./PlotWidget"));
+
+function ThreeScene() {
   const meshRef = useRef<Mesh>(null);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    let timeout: number;
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setScrollY(window.scrollY), 200);
     };
 
     handleScroll();
@@ -18,9 +24,14 @@ const ThreeScene = () => {
     };
   }, []);
 
+  const { rotationY } = useSpring({
+    rotationY: scrollY * 0.01,
+    config: { mass: 1, tension: 170, friction: 26 },
+  });
+
   useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.y = scrollY * 0.01;
+      meshRef.current.rotation.y = rotationY.get();
     }
   });
 
@@ -28,12 +39,24 @@ const ThreeScene = () => {
     <>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <mesh ref={meshRef}>
+      <animated.mesh ref={meshRef}>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={"orange"} />
-      </mesh>
+        <meshNormalMaterial />
+      </animated.mesh>
+      <CatmullRomLine
+        points={[
+          [0, 0, 0],
+          [2, 2, -3],
+          [-2, 2, -3],
+        ]}
+        lineWidth={3}
+        color="#ff2060"
+      />
+      <Suspense fallback={<Text>Loading...</Text>}>
+        <PlotWidget position={[0, -2, -3]} />
+      </Suspense>
     </>
   );
-};
+}
 
 export default ThreeScene;

@@ -1,11 +1,11 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import ThreeScene from "./ThreeScene";
 import "./Three.css";
 
-const ThreeCanvas = () => {
+function ThreeCanvas() {
   return (
     <Canvas
+      eventSource={document.getElementById("root")!}
       className="three-canvas"
       style={{
         position: "fixed",
@@ -13,13 +13,11 @@ const ThreeCanvas = () => {
         height: "100vh",
         top: 0,
         left: 0,
-        zIndex: -1,
       }}
     >
       <ThreeScene />
-      <OrbitControls />
     </Canvas>
   );
-};
+}
 
 export default ThreeCanvas;
