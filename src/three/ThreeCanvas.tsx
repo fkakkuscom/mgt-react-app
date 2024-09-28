@@ -1,11 +1,15 @@
+import { lazy, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import ThreeScene from "./ThreeScene";
-import "./Three.css";
+import { Text } from "@react-three/drei";
+import "./ThreeCanvas.css";
+
+const ThreeScene = lazy(() => import("./ThreeScene"));
 
 function ThreeCanvas() {
   return (
     <Canvas
       eventSource={document.getElementById("root")!}
+      camera={{ position: [0, 5, 10] }}
       className="three-canvas"
       style={{
         position: "fixed",
@@ -13,9 +17,12 @@ function ThreeCanvas() {
         height: "100vh",
         top: 0,
         left: 0,
+        zIndex: -1,
       }}
     >
-      <ThreeScene />
+      <Suspense fallback={<Text>Loading Scene...</Text>}>
+        <ThreeScene />
+      </Suspense>
     </Canvas>
   );
 }

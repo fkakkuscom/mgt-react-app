@@ -10,22 +10,53 @@ function ThreeScene() {
   const meshRef = useRef<Mesh>(null);
   const [scrollY, setScrollY] = useState(0);
 
+  const [plots, setPlots] = useState<{ x: number; y: number }[][]>([]);
+
   useEffect(() => {
+    const abortController = new AbortController();
+
+    try {
+      const loadData = () => {
+        fetch("/data1.json", { signal: abortController.signal })
+          .then((response) => response.json())
+          .then(
+            (data: {
+              name: string;
+              data: { x: number; time: number; ax: number; ay: number }[];
+            }) => {
+              setPlots([
+                data.data.map((d) => ({ x: d.x, y: d.time })),
+                data.data.map((d) => ({ x: d.x, y: d.ax })),
+                data.data.map((d) => ({ x: d.x, y: d.ay })),
+              ]);
+            }
+          )
+          .catch((error) => console.error("Error fetching data:", error));
+      };
+      loadData();
+    } catch (error) {
+      console.error(error);
+    }
+
     let timeout: number;
     const handleScroll = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(() => setScrollY(window.scrollY), 200);
+      timeout = setTimeout(
+        () => setScrollY((window.scrollY / window.innerHeight - 1) * 3.14),
+        200
+      );
     };
 
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
+      abortController.abort();
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const { rotationY } = useSpring({
-    rotationY: scrollY * 0.01,
+    rotationY: scrollY,
     config: { mass: 1, tension: 170, friction: 26 },
   });
 
@@ -52,8 +83,8 @@ function ThreeScene() {
         lineWidth={3}
         color="#ff2060"
       />
-      <Suspense fallback={<Text>Loading...</Text>}>
-        <PlotWidget position={[0, -2, -3]} />
+      <Suspense fallback={<Text>Loading PlotWidget...</Text>}>
+        <PlotWidget plots={plots} position={[0, -2, -3]} />
       </Suspense>
     </>
   );
