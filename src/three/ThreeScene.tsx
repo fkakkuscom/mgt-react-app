@@ -1,16 +1,21 @@
 import { useFrame } from "@react-three/fiber";
-import { lazy, useRef, useEffect, useState, Suspense } from "react";
+import { lazy, useRef, useEffect, Suspense } from "react";
 import { Mesh } from "three";
 import { useSpring, animated } from "@react-spring/three";
 import { CatmullRomLine, Text } from "@react-three/drei";
+import { proxy, useSnapshot } from "valtio";
 
 const PlotWidget = lazy(() => import("./PlotWidget"));
+const ModelTree = lazy(() => import("./ModelTree"));
+
+const state = proxy({
+  scrollY: 0,
+  plots: [] as { x: number; y: number }[][],
+});
 
 function ThreeScene() {
   const meshRef = useRef<Mesh>(null);
-  const [scrollY, setScrollY] = useState(0);
-
-  const [plots, setPlots] = useState<{ x: number; y: number }[][]>([]);
+  const snap = useSnapshot(state);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -24,14 +29,20 @@ function ThreeScene() {
               name: string;
               data: { x: number; time: number; ax: number; ay: number }[];
             }) => {
-              setPlots([
+              state.plots = [
                 data.data.map((d) => ({ x: d.x, y: d.time })),
                 data.data.map((d) => ({ x: d.x, y: d.ax })),
                 data.data.map((d) => ({ x: d.x, y: d.ay })),
-              ]);
+              ];
             }
           )
-          .catch((error) => console.error("Error fetching data:", error));
+          .catch((error) => {
+            if (error.name === "AbortError") {
+              console.log("Fetch aborted");
+            } else {
+              console.error("Fetch error:", error);
+            }
+          });
       };
       loadData();
     } catch (error) {
@@ -42,7 +53,8 @@ function ThreeScene() {
     const handleScroll = () => {
       clearTimeout(timeout);
       timeout = setTimeout(
-        () => setScrollY((window.scrollY / window.innerHeight - 1) * 3.14),
+        () =>
+          (state.scrollY = (window.scrollY / window.innerHeight - 1) * 3.14),
         200
       );
     };
@@ -56,7 +68,7 @@ function ThreeScene() {
   }, []);
 
   const { rotationY } = useSpring({
-    rotationY: scrollY,
+    rotationY: snap.scrollY,
     config: { mass: 1, tension: 170, friction: 26 },
   });
 
@@ -84,7 +96,10 @@ function ThreeScene() {
         color="#ff2060"
       />
       <Suspense fallback={<Text>Loading PlotWidget...</Text>}>
-        <PlotWidget plots={plots} position={[0, -2, -3]} />
+        <PlotWidget plots={snap.plots} position={[0, -2, -3]} />
+      </Suspense>
+      <Suspense fallback={<Text>Loading Tree...</Text>}>
+        <ModelTree position={[-3, 0, 0]} />
       </Suspense>
     </>
   );

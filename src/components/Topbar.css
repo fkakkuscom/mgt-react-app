@@ -1,16 +1,25 @@
 .topbar {
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.topbar-link {
-  color: #007bff;
+.topbar nav {
+  display: flex;
+  align-items: center;
+}
+
+.topbar nav > a {
   text-decoration: none;
+  margin: 0 2.5px;
+  padding: 5px 10px;
+  background-color: rgba(179, 136, 255, 0.075);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.topbar-link:hover {
-  text-decoration: underline;
-}
-
-.topbar-delimiter {
-  color: #000;
+.topbar nav > a:hover {
+  background-color: rgba(159, 119, 229, 0.075);
+  text-decoration: none;
 }
