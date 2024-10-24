@@ -1,4 +1,3 @@
-import React from "react";
 import { useRoute } from "wouter";
 
 const blogPosts = [
@@ -19,7 +18,7 @@ const blogPosts = [
   },
 ];
 
-const BlogPost: React.FC = () => {
+const BlogPost = () => {
   const [match, params] = useRoute<{ id: string }>("/blog/:id");
   const post = blogPosts.find((post) => post.id === Number(params?.id));
 

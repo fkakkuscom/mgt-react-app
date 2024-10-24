@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "wouter";
 
 const blogPosts = [
@@ -19,7 +18,7 @@ const blogPosts = [
   },
 ];
 
-const Blog: React.FC = () => {
+const Blog = () => {
   return (
     <div className="blog-list" style={{ minHeight: 4000 }}>
       {blogPosts.map((post) => (
