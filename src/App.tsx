@@ -9,14 +9,14 @@ const ThreeCanvas = lazy(() => import("./three/ThreeCanvas"));
 function App() {
   return (
     <>
-      <div className="overlay">
+      <div className="app-container flex flex-col items-start">
         <Topbar />
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:id" component={BlogPost} />
         <Route path="/login" component={Login} />
-      </div>{" "}
+      </div>
       <Suspense fallback={<div>Loading...</div>}>
         <ThreeCanvas />
       </Suspense>
