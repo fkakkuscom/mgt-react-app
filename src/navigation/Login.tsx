@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   authLoginResponseValidator,
   authLoginValidator,
@@ -6,6 +6,7 @@ import {
 } from "../validators/auth_validator";
 import axios, { AxiosError } from "axios";
 import { makeHttpUri } from "../utils/request-helpers";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("fkakkus@hotmail.com");
@@ -13,6 +14,8 @@ const Login = () => {
   const [errorMessages, setErrorMessages] = useState<
     { field: string; message: string; rule: string }[]
   >([]);
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {
@@ -27,6 +30,10 @@ const Login = () => {
           try {
             const payload = await authLoginResponseValidator.validate(res.data);
             localStorage.setItem("auth_token", payload.token.token);
+
+            if (formRef.current) {
+              toast("Login successful", { type: "success" });
+            }
           } catch (error) {
             if (error instanceof E_VALIDATION_ERROR) {
               console.error(error.message, error.messages);
@@ -34,12 +41,13 @@ const Login = () => {
           }
         })
         .catch((error: Error | AxiosError) => {
-          if (axios.isAxiosError(error)) {
+          if (axios.isAxiosError(error) && formRef.current) {
             if (error.response) {
               if (Array.isArray(error.response.data)) {
                 setErrorMessages(error.response.data);
               } else {
                 setErrorMessages([{ field: "form", ...error.response.data }]);
+                toast(error.response.data.message, { type: "error" });
               }
             }
           } else {
@@ -57,6 +65,7 @@ const Login = () => {
   return (
     <div className="flex self-center justify-center items-center min-h-screen min-w-[50%] mr-4 ml-4">
       <form
+        ref={formRef}
         className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm"
         onSubmit={handleSubmit}
       >
