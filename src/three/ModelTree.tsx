@@ -1,7 +1,17 @@
 import { GroupProps } from "@react-three/fiber";
 import { Line } from "@react-three/drei";
 
-const treeVertices = [
+interface Vertex {
+  id: number;
+  position: [x: number, y: number, z: number];
+}
+
+interface TreeItem {
+  start: number;
+  end: number;
+}
+
+const treeVertices: Vertex[] = [
   { id: 1, position: [0, 0, 0] },
   { id: 2, position: [0, 1, 0] },
   { id: 3, position: [-0.5, 2, 0] },
@@ -12,7 +22,7 @@ const treeVertices = [
   { id: 8, position: [0.75, 3, 0] },
 ];
 
-const treeEdges = [
+const treeEdges: TreeItem[] = [
   { start: 1, end: 2 },
   { start: 2, end: 3 },
   { start: 2, end: 4 },
@@ -29,12 +39,15 @@ function Tree({ ...props }: GroupProps) {
         const startVertex = treeVertices.find((v) => v.id === edge.start);
         const endVertex = treeVertices.find((v) => v.id === edge.end);
         return (
-          <Line
-            key={index}
-            points={[startVertex.position, endVertex.position]}
-            color="green"
-            lineWidth={2}
-          />
+          startVertex &&
+          endVertex && (
+            <Line
+              key={index}
+              points={[startVertex.position, endVertex.position]}
+              color="green"
+              lineWidth={2}
+            />
+          )
         );
       })}
     </group>

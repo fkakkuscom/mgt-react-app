@@ -19,7 +19,7 @@ const blogPosts = [
 ];
 
 const BlogPost = () => {
-  const [match, params] = useRoute<{ id: string }>("/blog/:id");
+  const [, params] = useRoute<{ id: string }>("/blog/:id");
   const post = blogPosts.find((post) => post.id === Number(params?.id));
 
   if (!post) {
