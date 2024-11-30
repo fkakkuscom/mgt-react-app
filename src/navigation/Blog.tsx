@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import Paper from "../components/Paper";
 
 const blogPosts = [
   {
@@ -18,9 +19,9 @@ const blogPosts = [
   },
 ];
 
-const Blog = () => {
+function Blog() {
   return (
-    <div className="blog-list" style={{ minHeight: 4000 }}>
+    <Paper style={{ minHeight: 4000 }}>
       {blogPosts.map((post) => (
         <div key={post.id}>
           <Link href={`/blog/${post.id}`}>
@@ -29,8 +30,8 @@ const Blog = () => {
           <p>{post.content}</p>
         </div>
       ))}
-    </div>
+    </Paper>
   );
-};
+}
 
 export default Blog;

@@ -1,4 +1,5 @@
 import { useRoute } from "wouter";
+import Paper from "../components/Paper";
 
 const blogPosts = [
   {
@@ -18,7 +19,7 @@ const blogPosts = [
   },
 ];
 
-const BlogPost = () => {
+function BlogPost() {
   const [, params] = useRoute<{ id: string }>("/blog/:id");
   const post = blogPosts.find((post) => post.id === Number(params?.id));
 
@@ -27,11 +28,11 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="blog-post">
+    <Paper>
       <h2>{post.title}</h2>
       <p>{post.content}</p>
-    </div>
+    </Paper>
   );
-};
+}
 
 export default BlogPost;

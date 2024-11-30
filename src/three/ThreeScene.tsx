@@ -38,7 +38,7 @@ function ThreeScene() {
           )
           .catch((error) => {
             if (error.name === "AbortError") {
-              console.log("Fetch aborted");
+              console.warn("Fetch aborted");
             } else {
               console.error("Fetch error:", error);
             }

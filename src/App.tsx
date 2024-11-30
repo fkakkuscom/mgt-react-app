@@ -2,10 +2,14 @@ import { lazy, Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { Route } from "wouter";
 import "./App.css";
-import { About, Blog, Home, Login } from "./navigation";
-import { BlogPost, Topbar } from "./components";
 import "react-toastify/dist/ReactToastify.css";
+import Home from "./navigation/Home";
+import About from "./navigation/About";
+import Blog from "./navigation/Blog";
+import BlogPost from "./navigation/BlogPost";
+import Login from "./navigation/Login";
 
+const Topbar = lazy(() => import("./components/Topbar"));
 const ThreeCanvas = lazy(() => import("./three/ThreeCanvas"));
 
 function App() {
