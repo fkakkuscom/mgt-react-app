@@ -8,6 +8,7 @@ import About from "./navigation/About";
 import Blog from "./navigation/Blog";
 import BlogPost from "./navigation/BlogPost";
 import Login from "./navigation/Login";
+import Storybook from "./navigation/Storybook";
 
 const Topbar = lazy(() => import("./components/Topbar"));
 const ThreeCanvas = lazy(() => import("./three/ThreeCanvas"));
@@ -23,6 +24,7 @@ function App() {
         <Route path="/blog" component={Blog} />
         <Route path="/blog/:id" component={BlogPost} />
         <Route path="/login" component={Login} />
+        <Route path="/storybook" component={Storybook} />
       </div>
       <Suspense fallback={<div>Loading...</div>}>
         <ThreeCanvas />

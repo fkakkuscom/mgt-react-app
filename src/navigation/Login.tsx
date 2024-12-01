@@ -8,6 +8,7 @@ import axios, { AxiosError } from "axios";
 import { makeHttpUri } from "../utils/request-helpers";
 import { toast } from "react-toastify";
 import Paper from "../components/Paper";
+import { Button } from "../stories/Button";
 
 function Login() {
   const [email, setEmail] = useState("fkakkus@hotmail.com");
@@ -109,9 +110,9 @@ function Login() {
             className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-white"
           />
         </div>
-        <button type="submit" className="w-full">
+        <Button primary type="submit" className="w-full">
           Login
-        </button>
+        </Button>
       </form>
     </Paper>
   );

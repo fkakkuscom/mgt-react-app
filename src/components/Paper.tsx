@@ -8,10 +8,14 @@ interface PaperProps
   children?: React.ReactNode;
 }
 
-function Paper(props: PaperProps) {
+function Paper({ className, ...props }: PaperProps) {
   return (
     <div
-      className="Paper max-w-2xl w-full p-4 self-center place-self-center center items-center justify-center"
+      className={[
+        "Paper max-w-2xl w-full p-4",
+        "self-center place-self-center center items-center justify-center",
+        className,
+      ].join(" ")}
       {...props}
     />
   );

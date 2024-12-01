@@ -4,7 +4,6 @@ import Typewriter from "../components/Typewriter";
 function Home() {
   return (
     <Paper>
-      <h2>Home Page</h2>
       <Typewriter
         text={[
           { label: "Welcome to the app" },
