@@ -1,23 +1,10 @@
-import React from "react";
-
-import { Header } from "./Header";
+import Header from "./Header";
 import "./Page.css";
 
-type User = {
-  name: string;
-};
-
-export const Page: React.FC = () => {
-  const [user, setUser] = React.useState<User>();
-
+function Page() {
   return (
-    <article>
-      <Header
-        user={user}
-        onLogin={() => setUser({ name: "Jane Doe" })}
-        onLogout={() => setUser(undefined)}
-        onCreateAccount={() => setUser({ name: "Jane Doe" })}
-      />
+    <article className="dark:text-white">
+      <Header />
 
       <section className="storybook-page">
         <h2>Pages in Storybook</h2>
@@ -88,4 +75,6 @@ export const Page: React.FC = () => {
       </section>
     </article>
   );
-};
+}
+
+export default Page;

@@ -2,17 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import "./Typewriter.css";
 import useOnScreen from "../app/hooks";
 
+interface TypewriterText {
+  /** Text to display */
+  label: string;
+  /** Color of the text */
+  color?: string;
+  /** Stop typing after this item */
+  stop?: boolean;
+  /** Delay after typing before reverting */
+  clcDelay?: number;
+}
+
 interface TypewriterProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
-  text: {
-    label: string;
-    color?: string;
-    stop?: boolean;
-    clcDelay?: number;
-  }[];
+  /** Text array to display */
+  text: TypewriterText[];
+  /** Interval for typing letters */
   interval?: number;
 }
 
@@ -71,7 +79,11 @@ function Typewriter({
   }, [text, interval, play]);
 
   return (
-    <div className={["Typewriter", className].join(" ")} {...rest} ref={ref}>
+    <div
+      className={["Typewrite text-3xl dark:text-white", className].join(" ")}
+      {...rest}
+      ref={ref}
+    >
       <h1 className="label" style={{ color: text[current].color }}>
         {output}
         <span className="cursor">|</span>

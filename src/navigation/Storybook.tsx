@@ -1,5 +1,5 @@
-import Paper from "../components/Paper";
-import { Button } from "../stories/Button";
+import Button from "../stories/Button";
+import Paper from "../stories/Paper";
 
 function Storybook() {
   return (

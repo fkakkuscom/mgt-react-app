@@ -1,5 +1,5 @@
 import { useRoute } from "wouter";
-import Paper from "../components/Paper";
+import Paper from "../stories/Paper";
 
 const blogPosts = [
   {

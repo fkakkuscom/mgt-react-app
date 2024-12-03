@@ -10,15 +10,15 @@ import BlogPost from "./navigation/BlogPost";
 import Login from "./navigation/Login";
 import Storybook from "./navigation/Storybook";
 
-const Topbar = lazy(() => import("./components/Topbar"));
+const Header = lazy(() => import("./stories/Header"));
 const ThreeCanvas = lazy(() => import("./three/ThreeCanvas"));
 
 function App() {
   return (
     <>
       <ToastContainer theme="dark" position="bottom-right" closeOnClick />
-      <div className="app-container flex flex-col items-start">
-        <Topbar />
+      <div className="app-container w-full h-full flex flex-col items-start">
+        <Header />
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/blog" component={Blog} />

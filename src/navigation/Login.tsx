@@ -7,8 +7,8 @@ import {
 import axios, { AxiosError } from "axios";
 import { makeHttpUri } from "../utils/request-helpers";
 import { toast } from "react-toastify";
-import Paper from "../components/Paper";
-import { Button } from "../stories/Button";
+import Paper from "../stories/Paper";
+import Button from "../stories/Button";
 
 function Login() {
   const [email, setEmail] = useState("fkakkus@hotmail.com");
@@ -65,7 +65,7 @@ function Login() {
   };
 
   return (
-    <Paper className="flex self-center justify-center items-center min-h-screen min-w-[50%] mr-4 ml-4">
+    <Paper className="flex-1 flex self-center justify-center items-center min-w-[50%] mr-4 ml-4">
       <form
         ref={formRef}
         className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm"

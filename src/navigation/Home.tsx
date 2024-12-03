@@ -1,10 +1,11 @@
-import Paper from "../components/Paper";
-import Typewriter from "../components/Typewriter";
+import Paper from "../stories/Paper";
+import Typewriter from "../stories/Typewriter";
 
 function Home() {
   return (
     <Paper>
       <Typewriter
+        className="text-center"
         text={[
           { label: "Welcome to the app" },
           { label: "This is where magic happens", color: "orange" },

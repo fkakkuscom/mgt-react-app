@@ -15,14 +15,14 @@ export interface ButtonProps
 }
 
 /** Primary UI component for user interaction */
-export const Button = ({
+function Button({
   primary = false,
   size = "medium",
   backgroundColor,
   children,
   className,
   ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   return (
     <button
       type="button"
@@ -48,4 +48,6 @@ export const Button = ({
       {children}
     </button>
   );
-};
+}
+
+export default Button;
