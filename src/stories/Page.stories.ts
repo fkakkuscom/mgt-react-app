@@ -5,12 +5,14 @@ import Page from "./Page";
 const meta = {
   title: "Example/Page",
   component: Page,
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
     backgrounds: {
       default: "dark",
     },
   },
+  args: {},
 } satisfies Meta<typeof Page>;
 
 export default meta;

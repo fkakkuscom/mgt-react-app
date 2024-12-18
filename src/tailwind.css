@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+    line-height: 1.5;
+    font-weight: 400;
+
+    @apply dark:bg-gray-900 dark:text-slate-50;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    text-decoration: inherit;
+    @apply font-medium;
+    @apply text-purple-700 dark:text-purple-400;
+  }
+  a:hover {
+    @apply text-purple-600 dark:text-purple-300;
+  }
+
+  h1 {
+    @apply text-3xl;
+    line-height: 1.1;
+  }
+}
