@@ -8,9 +8,7 @@ const meta = {
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    backgrounds: {
-      default: "dark",
-    },
+    backgrounds: {},
   },
   args: {},
 } satisfies Meta<typeof Page>;

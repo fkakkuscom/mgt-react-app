@@ -6,9 +6,7 @@ const meta = {
   component: Typewriter,
   parameters: {
     layout: "centered",
-    backgrounds: {
-      default: "dark",
-    },
+    backgrounds: {},
   },
   tags: ["autodocs"],
   argTypes: {

@@ -5,6 +5,9 @@ import "../src/tailwind.css";
 
 const preview: Preview = {
   parameters: {
+    backgrounds: {
+      default: "transparent",
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -21,7 +24,7 @@ const preview: Preview = {
         light: "light",
         dark: "dark",
       },
-      defaultTheme: "light",
+      defaultTheme: "dark",
       attributeName: "data-mode",
     }),
   ],

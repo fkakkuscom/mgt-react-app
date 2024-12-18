@@ -35,7 +35,6 @@ export interface HeaderProps
     HTMLElement
   > {
   loggedIn?: boolean;
-  className?: string;
 }
 
 function Header({ loggedIn, className }: HeaderProps) {
